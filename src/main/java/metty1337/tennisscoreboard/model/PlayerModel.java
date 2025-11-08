@@ -8,14 +8,13 @@ import lombok.*;
 @Setter
 @Entity
 @ToString
-@Table(name = "Players")
-public class Player {
+@Table(name = "players")
+public class PlayerModel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(nullable = false, name = "Name", unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 }

@@ -17,8 +17,8 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="metty1337.tennisscoreboard.model.Player"/>
-        <mapping class="metty1337.tennisscoreboard.model.Match"/>
+        <mapping class="metty1337.tennisscoreboard.model.PlayerModel"/>
+        <mapping class="metty1337.tennisscoreboard.model.MatchModel"/>
 
     </session-factory>
 </hibernate-configuration>

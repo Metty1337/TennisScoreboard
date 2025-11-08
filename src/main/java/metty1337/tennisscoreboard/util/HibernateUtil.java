@@ -1,19 +1,26 @@
 package metty1337.tennisscoreboard.util;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import lombok.Getter;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateUtil {
-    @Getter
+public final class HibernateUtil {
     private static final SessionFactory sessionFactory;
 
     static {
-        try{
+        try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
-        } catch (Throwable ex){
+        } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
+    }
+
+    @Produces
+    @ApplicationScoped
+    public static SessionFactory produceSessionFactory() {
+        return sessionFactory;
     }
 }
