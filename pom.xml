@@ -21,6 +21,9 @@
         <hibernate-core.version>7.1.6.Final</hibernate-core.version>
         <h2.version>2.4.240</h2.version>
         <slf4j-simple.version>2.0.17</slf4j-simple.version>
+        <jakarta.servlet.jsp.jstl.version>3.0.1</jakarta.servlet.jsp.jstl.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <mapstruct-processor>1.6.3</mapstruct-processor>
 
         <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
         <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
@@ -70,6 +73,16 @@
             <artifactId>weld-servlet-core</artifactId>
             <version>${weld-servlet-core.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>${jakarta.servlet.jsp.jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.6.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -91,6 +104,11 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct-processor}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

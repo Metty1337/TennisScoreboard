@@ -8,7 +8,8 @@ import lombok.Getter;
 @Getter
 public enum ExceptionMessages {
     DATABASE_EXCEPTION("Database error"),
-    PlayerDoesntExistException("Player does not exist");
+    PLAYER_DOESNT_EXIST_EXCEPTION("Player does not exist"),
+    MATCH_DOESNT_EXIST_EXCEPTION("Match does not exist"),;
     private final String message;
 }
 

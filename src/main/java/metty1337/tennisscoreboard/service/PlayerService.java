@@ -42,6 +42,6 @@ public class PlayerService {
 
     private PlayerModel getPlayerByName(String playerName) {
         return Objects.requireNonNull(playersDao).findByName(playerName)
-                .orElseThrow(() -> new PlayerDoesntExistException(ExceptionMessages.PlayerDoesntExistException.getMessage()));
+                .orElseThrow(() -> new PlayerDoesntExistException(ExceptionMessages.PLAYER_DOESNT_EXIST_EXCEPTION.getMessage()));
     }
 }

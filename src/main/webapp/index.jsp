@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +36,7 @@
         <p>Manage your tennis matches, record results, and track rankings</p>
         <div class="welcome-image"></div>
         <div class="form-container center">
-            <a class="homepage-action-button" href="#">
+            <a class="homepage-action-button" href="${pageContext.request.contextPath}/new-match">
                 <button class="btn start-match">
                     Start a new match
                 </button>

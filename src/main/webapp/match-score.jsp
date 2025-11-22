@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -38,15 +41,15 @@
             <table class="table">
                 <thead class="result">
                 <tr>
+                    <th class="table-text">Games</th>
                     <th class="table-text">Player</th>
                     <th class="table-text">Sets</th>
-                    <th class="table-text">Games</th>
                     <th class="table-text">Points</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="player1">
-                    <td class="table-text">Rafael Nadal</td>
+                    <td class="table-text">${playerOne.getName()}</td>
                     <td class="table-text">2</td>
                     <td class="table-text">4</td>
                     <td class="table-text">40</td>
@@ -55,7 +58,7 @@
                     </td>
                 </tr>
                 <tr class="player2">
-                    <td class="table-text">Roger Federer</td>
+                    <td class="table-text">${playerTwo.getName()}</td>
                     <td class="table-text">2</td>
                     <td class="table-text">3</td>
                     <td class="table-text">15</td>

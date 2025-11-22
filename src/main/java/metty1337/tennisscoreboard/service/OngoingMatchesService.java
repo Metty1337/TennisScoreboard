@@ -4,12 +4,17 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import metty1337.tennisscoreboard.dto.MatchScoreDto;
+import metty1337.tennisscoreboard.exceptions.ExceptionMessages;
+import metty1337.tennisscoreboard.exceptions.MatchDoesntExistException;
+import metty1337.tennisscoreboard.mapper.MatchScoreMapper;
 import metty1337.tennisscoreboard.model.MatchScoreModel;
 import metty1337.tennisscoreboard.model.PlayerModel;
 import metty1337.tennisscoreboard.model.ScoreModel;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,9 +36,20 @@ public class OngoingMatchesService {
 
         UUID matchId = UUID.randomUUID();
         ScoreModel score = new ScoreModel(0, 0);
-        MatchScoreModel matchScore = new MatchScoreModel(playerOne.getId(), playerTwo.getId(), score);
+        MatchScoreModel matchScore = new MatchScoreModel(playerOne, playerTwo, score);
         Objects.requireNonNull(ongoingMatches).put(matchId, matchScore);
 
         return matchId.toString();
+    }
+
+    public MatchScoreModel getMatch(String matchId) {
+        UUID uuid = UUID.fromString(matchId);
+        Optional<MatchScoreModel> matchScoreModel = Optional.ofNullable(Objects.requireNonNull(ongoingMatches).get(uuid));
+
+        if (matchScoreModel.isPresent()) {
+            return matchScoreModel.get();
+        } else {
+            throw new MatchDoesntExistException(ExceptionMessages.MATCH_DOESNT_EXIST_EXCEPTION.getMessage());
+        }
     }
 }

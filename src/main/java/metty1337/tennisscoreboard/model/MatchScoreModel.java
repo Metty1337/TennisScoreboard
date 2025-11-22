@@ -1,5 +1,4 @@
 package metty1337.tennisscoreboard.model;
 
 
-public record MatchScoreModel(long playerOneId, long playerTwoId, ScoreModel score) {
-}
+public record MatchScoreModel(PlayerModel playerOne, PlayerModel playerTwo, ScoreModel score) {}
