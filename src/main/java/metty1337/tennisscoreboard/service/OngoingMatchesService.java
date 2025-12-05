@@ -4,10 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import metty1337.tennisscoreboard.dto.MatchScoreDto;
+import metty1337.tennisscoreboard.enums.Point;
 import metty1337.tennisscoreboard.exceptions.ExceptionMessages;
 import metty1337.tennisscoreboard.exceptions.MatchDoesntExistException;
-import metty1337.tennisscoreboard.mapper.MatchScoreMapper;
 import metty1337.tennisscoreboard.model.MatchScoreModel;
 import metty1337.tennisscoreboard.model.PlayerModel;
 import metty1337.tennisscoreboard.model.ScoreModel;
@@ -35,8 +34,9 @@ public class OngoingMatchesService {
         PlayerModel playerTwo = Objects.requireNonNull(playerService).findOrCreatePlayer(playerTwoName);
 
         UUID matchId = UUID.randomUUID();
-        ScoreModel score = new ScoreModel(0, 0);
-        MatchScoreModel matchScore = new MatchScoreModel(playerOne, playerTwo, score);
+        //TODO: сделать метод в каком-то сервисе с инициализацией скора с нулями
+        ScoreModel scoreModel = new ScoreModel(Point.LOVE, 0, 0, 0, Point.LOVE, 0, 0, 0, false);
+        MatchScoreModel matchScore = new MatchScoreModel(playerOne, playerTwo, scoreModel);
         Objects.requireNonNull(ongoingMatches).put(matchId, matchScore);
 
         return matchId.toString();
@@ -51,5 +51,10 @@ public class OngoingMatchesService {
         } else {
             throw new MatchDoesntExistException(ExceptionMessages.MATCH_DOESNT_EXIST_EXCEPTION.getMessage());
         }
+    }
+    
+    public void removeMatchFromOngoing(String matchId) {
+        UUID uuid = UUID.fromString(matchId);
+        Objects.requireNonNull(ongoingMatches).remove(uuid);
     }
 }

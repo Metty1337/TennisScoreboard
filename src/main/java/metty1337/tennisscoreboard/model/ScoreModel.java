@@ -1,12 +1,22 @@
 package metty1337.tennisscoreboard.model;
 
 import lombok.*;
+import metty1337.tennisscoreboard.enums.Point;
 
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class ScoreModel {
-    private int playerOneScore;
-    private int playerTwoScore;
+    private Point playerOnePoints;
+    private int playerOneGames;
+    private int playerOneSets;
+    private int playerOneTieBreakPoints;
+
+    private Point playerTwoPoints;
+    private int playerTwoGames;
+    private int playerTwoSets;
+    private int playerTwoTieBreakPoints;
+
+    private boolean tieBreak;
 }

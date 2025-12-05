@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import metty1337.tennisscoreboard.dao.PlayersDao;
+import metty1337.tennisscoreboard.dao.PlayerDao;
 import metty1337.tennisscoreboard.exceptions.ExceptionMessages;
 import metty1337.tennisscoreboard.exceptions.PlayerDoesntExistException;
 import metty1337.tennisscoreboard.model.PlayerModel;
@@ -14,10 +14,10 @@ import java.util.Objects;
 @ApplicationScoped
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class PlayerService {
-    private final PlayersDao playersDao;
+    private final PlayerDao playersDao;
 
     @Inject
-    public PlayerService(PlayersDao playersDao) {
+    public PlayerService(PlayerDao playersDao) {
         this.playersDao = playersDao;
     }
 
@@ -33,15 +33,20 @@ public class PlayerService {
         return Objects.requireNonNull(playersDao).existsByName(playerName);
     }
 
-    private PlayerModel createPlayer(String playerName) {
+    public PlayerModel createPlayer(String playerName) {
         PlayerModel playerModel = new PlayerModel();
         playerModel.setName(playerName);
         Objects.requireNonNull(playersDao).save(playerModel);
         return playerModel;
     }
 
-    private PlayerModel getPlayerByName(String playerName) {
+    public PlayerModel getPlayerByName(String playerName) {
         return Objects.requireNonNull(playersDao).findByName(playerName)
+                .orElseThrow(() -> new PlayerDoesntExistException(ExceptionMessages.PLAYER_DOESNT_EXIST_EXCEPTION.getMessage()));
+    }
+
+    public PlayerModel getPlayerById(int playerId) {
+        return Objects.requireNonNull(playersDao).findById(playerId)
                 .orElseThrow(() -> new PlayerDoesntExistException(ExceptionMessages.PLAYER_DOESNT_EXIST_EXCEPTION.getMessage()));
     }
 }

@@ -9,7 +9,8 @@ import lombok.Getter;
 public enum ExceptionMessages {
     DATABASE_EXCEPTION("Database error"),
     PLAYER_DOESNT_EXIST_EXCEPTION("Player does not exist"),
-    MATCH_DOESNT_EXIST_EXCEPTION("Match does not exist"),;
+    MATCH_DOESNT_EXIST_EXCEPTION("Match does not exist"),
+    ILLEGAL_ARGUMENT_EXCEPTION("Has no next point");
     private final String message;
 }
 

@@ -299,6 +299,13 @@ footer {
     cursor: pointer;
 }
 
+.final-result {
+    text-align: center;
+}
+
+
+
+
 /* Responsive Styles */
 @media (max-width: 992px) {
     .container {

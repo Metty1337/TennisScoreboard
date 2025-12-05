@@ -21,6 +21,7 @@
         <hibernate-core.version>7.1.6.Final</hibernate-core.version>
         <h2.version>2.4.240</h2.version>
         <slf4j-simple.version>2.0.17</slf4j-simple.version>
+        <jakarta.servlet.jsp.jstl-api.version>3.0.2</jakarta.servlet.jsp.jstl-api.version>
         <jakarta.servlet.jsp.jstl.version>3.0.1</jakarta.servlet.jsp.jstl.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <mapstruct-processor>1.6.3</mapstruct-processor>
@@ -72,6 +73,11 @@
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet-core</artifactId>
             <version>${weld-servlet-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>${jakarta.servlet.jsp.jstl-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
