@@ -17,13 +17,17 @@ public class MatchScoreCalculationService {
     private static final int TIEBREAK_MIN_POINTS_TO_WIN = 7;
     private static final int GAMES_MIN_POINTS_TO_TIE_BRAKE = 6;
 
-    public void updateMatchScore(MatchScoreModel matchScoreModel, int winnerId) {
+    public void updateMatchScore(MatchScoreModel matchScoreModel, long winnerId) {
         if (winnerId == matchScoreModel.playerOne().getId()) {
             playerOneWonPoint(matchScoreModel.score());
         } else if (winnerId == matchScoreModel.playerTwo().getId()) {
             playerTwoWonPoint(matchScoreModel.score());
         }
+        if (isTieBreak(matchScoreModel.score())) {
+            startTieBreak(matchScoreModel.score());
+        }
     }
+
 
     public boolean isFinished(MatchScoreModel matchScoreModel) {
         ScoreModel scoreModel = matchScoreModel.score();
@@ -46,6 +50,7 @@ public class MatchScoreCalculationService {
         Point playerTwoPoint = scoreModel.getPlayerTwoPoints();
 
         if (isTieBreak(scoreModel)) {
+            startTieBreak(scoreModel);
             applyTieBreakPoint(scoreModel, playerOneWon);
             checkTieBreakWin(scoreModel);
             return;
@@ -67,10 +72,7 @@ public class MatchScoreCalculationService {
         int playerOneGames = scoreModel.getPlayerOneGames();
         int playerTwoGames = scoreModel.getPlayerTwoGames();
 
-        if (playerOneGames == GAMES_MIN_POINTS_TO_TIE_BRAKE && playerTwoGames == GAMES_MIN_POINTS_TO_TIE_BRAKE) {
-            startTieBreak(scoreModel);
-        }
-        return scoreModel.isTieBreak();
+        return (playerOneGames == GAMES_MIN_POINTS_TO_TIE_BRAKE && playerTwoGames == GAMES_MIN_POINTS_TO_TIE_BRAKE) || scoreModel.isTieBreak();
     }
 
     private void applyTieBreakPoint(ScoreModel scoreModel, boolean playerOneWon) {

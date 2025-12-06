@@ -14,7 +14,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>8</maven.compiler.target>
         <maven.compiler.source>8</maven.compiler.source>
-        <junit.version>5.11.0</junit.version>
+        <junit-jupiter-api.version>5.14.1</junit-jupiter-api.version>
+        <junit-jupiter-engine.version>5.14.1</junit-jupiter-engine.version>
+        <junit-jupiter-params.version>5.14.1</junit-jupiter-params.version>
         <weld-servlet-core.version>5.1.2.Final</weld-servlet-core.version>
         <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <lombok.version>1.18.42</lombok.version>
@@ -40,13 +42,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
+            <version>${junit-jupiter-api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
+            <version>${junit-jupiter-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit-jupiter-params.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -103,8 +111,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>24</source>
-                    <target>24</target>
+                    <release>25</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

@@ -12,7 +12,6 @@ import lombok.*;
 public class PlayerModel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(nullable = false, unique = true)

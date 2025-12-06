@@ -6,6 +6,7 @@ import metty1337.tennisscoreboard.enums.Point;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 public class ScoreModel {
     private Point playerOnePoints;
