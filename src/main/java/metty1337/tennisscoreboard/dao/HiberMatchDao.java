@@ -10,12 +10,16 @@ import metty1337.tennisscoreboard.model.MatchModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.util.List;
 import java.util.Objects;
 
 @ApplicationScoped
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class HiberMatchDao implements MatchDao {
+    private static final String FIND_BY_SIMILAR_NAME = "FROM MatchModel m WHERE m.playerOne.name LIKE :name OR m.playerTwo.name LIKE :name ORDER BY m.id";
+    private static final String FIND_ALL = "FROM MatchModel m ORDER BY m.id";
     private final SessionFactory sessionFactory;
 
     @Inject
@@ -37,4 +41,40 @@ public class HiberMatchDao implements MatchDao {
             throw new DatabaseException(ExceptionMessages.DATABASE_EXCEPTION.getMessage(), e);
         }
     }
+
+    @Override
+    public List<MatchModel> findBySimilarNameWithSettings(int limit, int offset, String playerName) {
+        try (Session session = Objects.requireNonNull(sessionFactory).openSession()) {
+            Query<MatchModel> query = session.createQuery(FIND_BY_SIMILAR_NAME, MatchModel.class);
+            query.setParameter("name", playerName);
+            query.setFirstResult(offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new DatabaseException(ExceptionMessages.DATABASE_EXCEPTION.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<MatchModel> findAllWithSettings(int limit, int offset) {
+        try (Session session = Objects.requireNonNull(sessionFactory).openSession()) {
+            Query<MatchModel> query = session.createQuery(FIND_ALL, MatchModel.class);
+            query.setFirstResult(offset);
+            query.setMaxResults(limit);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new DatabaseException(ExceptionMessages.DATABASE_EXCEPTION.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<MatchModel> findAll() {
+        try (Session session = Objects.requireNonNull(sessionFactory).openSession()) {
+            Query<MatchModel> query = session.createQuery(FIND_ALL, MatchModel.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new DatabaseException(ExceptionMessages.DATABASE_EXCEPTION.getMessage(), e);
+        }
+    }
+
 }

@@ -9,6 +9,9 @@ import metty1337.tennisscoreboard.model.MatchModel;
 import metty1337.tennisscoreboard.model.MatchScoreModel;
 import metty1337.tennisscoreboard.model.PlayerModel;
 
+import java.util.List;
+import java.util.Objects;
+
 @ApplicationScoped
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class FinishedMatchesPersistenceService {
@@ -22,7 +25,7 @@ public class FinishedMatchesPersistenceService {
     public void saveMatchToFinishedScoreboard(MatchScoreModel matchScoreModel, int winnerId) {
         PlayerModel playerOne = matchScoreModel.playerOne();
         PlayerModel playerTwo = matchScoreModel.playerTwo();
-        PlayerModel winner = null;
+        PlayerModel winner;
         if (winnerId == playerOne.getId()) {
             winner = playerOne;
         } else {
@@ -34,6 +37,23 @@ public class FinishedMatchesPersistenceService {
         matchModel.setPlayerTwo(playerTwo);
         matchModel.setWinner(winner);
 
-        matchDao.save(matchModel);
+        Objects.requireNonNull(matchDao).save(matchModel);
+    }
+
+    public List<MatchModel> getPageOfMatches(int page, int pageSize, String playerName) {
+        int offset = (page - 1) * pageSize;
+
+        List<MatchModel> matchModels;
+        if (!playerName.isBlank()) {
+            matchModels = Objects.requireNonNull(matchDao).findBySimilarNameWithSettings(pageSize, offset, playerName);
+        } else {
+            matchModels = Objects.requireNonNull(matchDao).findAllWithSettings(pageSize, offset);
+        }
+        return matchModels;
+    }
+
+    public int getTotalPages(int pageSize) {
+        List<MatchModel> matchModels = Objects.requireNonNull(matchDao).findAll();
+        return (int) Math.ceil((double) matchModels.size() / pageSize);
     }
 }
